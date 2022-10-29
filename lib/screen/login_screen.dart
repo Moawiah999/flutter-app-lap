@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screen/homescreen.dart';
-import 'package:flutterapp/screen/sign_in.dart';
+import 'package:flutterapp/screen/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -42,7 +42,7 @@ class _Login_ScreenState extends State<Login_Screen> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                // controller: nameController,
+                controller: emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
@@ -53,7 +53,7 @@ class _Login_ScreenState extends State<Login_Screen> {
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: TextField(
                 obscureText: true,
-                //       controller: passwordController,
+                controller: passwordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
@@ -79,6 +79,23 @@ class _Login_ScreenState extends State<Login_Screen> {
                           await auth.signInWithEmailAndPassword(
                               email: emailController.text,
                               password: passwordController.text);
+                      if (auth.currentUser!.email == "w@gmail.com") {
+                        setState(() {
+                          colors = Colors.red;
+                        });
+                      } else if (auth.currentUser!.email == "k@gmail.com") {
+                        setState(() {
+                          colors = Colors.green;
+                        });
+                      } else if (auth.currentUser!.email == "h@gmail.com") {
+                        setState(() {
+                          colors = Colors.blue;
+                        });
+                      } else if (auth.currentUser!.email == "m@gmail.com") {
+                        setState(() {
+                          colors = Colors.purple;
+                        });
+                      }
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
                           return Home_Screen();
@@ -95,13 +112,13 @@ class _Login_ScreenState extends State<Login_Screen> {
                 const Text('Does not have account?'),
                 TextButton(
                   child: const Text(
-                    'Sign in',
+                    'Sign up',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return Sign_In();
+                        return Sign_Up();
                       },
                     ));
                   },
